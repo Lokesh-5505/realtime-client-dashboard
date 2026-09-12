@@ -7,7 +7,7 @@ async function main() {
   console.log('🌱 Starting Database Seeding...');
 
   const userCount = await prisma.user.count();
-  if (userCount > 0 && process.env.FORCE_SEED !== 'true') {
+  if (userCount > 0 && (globalThis as any).process?.env?.FORCE_SEED !== 'true') {
     console.log(`Database already initialized with ${userCount} users. Skipping seed.`);
     return;
   }
@@ -27,7 +27,7 @@ async function main() {
 
   // 1. Create Users
   // 1 Admin, 2 Project Managers, 4 Developers
-  const admin = await prisma.user.create({
+  await prisma.user.create({
     data: {
       email: 'admin@agency.com',
       passwordHash,
@@ -220,7 +220,7 @@ async function main() {
     },
   });
 
-  const t1_5 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Setup Algolia Product Search Indexing',
       description: 'Stream catalog updates via database triggers to Algolia index.',
@@ -232,7 +232,7 @@ async function main() {
     },
   });
 
-  const t1_6 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Responsive Cart Drawer Micro-interactions',
       description: 'Build framer-motion powered cart slide-over with swipe-to-remove gesture.',
@@ -271,7 +271,7 @@ async function main() {
     },
   });
 
-  const t2_3 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'WebSocket Live Telemetry Feed',
       description: 'Stream pipeline execution logs directly to the dashboard in real time.',
@@ -283,7 +283,7 @@ async function main() {
     },
   });
 
-  const t2_4 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Anomaly Detection Threshold Alerter',
       description: 'Alert on-call engineers when error rate exceeds 3 standard deviations.',
@@ -295,7 +295,7 @@ async function main() {
     },
   });
 
-  const t2_5 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Implement Export to CSV and Parquet',
       description: 'Stream large data exports with low memory footprint using Node.js Transform streams.',
@@ -307,7 +307,7 @@ async function main() {
     },
   });
 
-  const t2_6 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Dark Mode Glassmorphic Charts',
       description: 'Design high-framerate Canvas charts for latency benchmarks.',
@@ -334,7 +334,7 @@ async function main() {
     },
   });
 
-  const t3_2 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Adaptive Bitrate HLS Chunk Packaging',
       description: 'Benchmark ffmpeg transcode ladders for 1080p60 and 4K HDR profiles.',
@@ -346,7 +346,7 @@ async function main() {
     },
   });
 
-  const t3_3 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Offline Video Encryption & SQLite Storage',
       description: 'Safely encrypt downloaded chunks on device with AES-256-GCM.',
@@ -370,7 +370,7 @@ async function main() {
     },
   });
 
-  const t3_5 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Picture-in-Picture & Background Audio Playback',
       description: 'Support native OS media controls and PiP transitions.',
@@ -382,7 +382,7 @@ async function main() {
     },
   });
 
-  const t3_6 = await prisma.task.create({
+  await prisma.task.create({
     data: {
       title: 'Bandwidth Estimation Quality Switcher',
       description: 'Dynamic bitrate adjustment based on live network round-trip time and buffer fullness.',
@@ -533,7 +533,7 @@ async function main() {
 main()
   .catch((e) => {
     console.error('❌ Seeding failed:', e);
-    process.exit(1);
+    (globalThis as any).process?.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
