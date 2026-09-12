@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "node ./node_modules/prisma/build/index.js generate && tsc",
-    "vercel-build": "node ./node_modules/prisma/build/index.js generate && tsc",
+    "build": "node ./node_modules/prisma/build/index.js generate && node ./node_modules/typescript/bin/tsc",
+    "vercel-build": "node ./node_modules/prisma/build/index.js generate && node ./node_modules/typescript/bin/tsc",
     "start": "node dist/index.js",
     "prisma:generate": "node ./node_modules/prisma/build/index.js generate",
     "prisma:migrate": "prisma migrate dev",
