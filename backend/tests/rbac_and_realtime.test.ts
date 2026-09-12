@@ -267,10 +267,12 @@ async function runTests() {
   console.log(`📊 TEST RESULTS: ${passed} PASSED | ${failed} FAILED`);
   console.log('====================================================\n');
 
-  if (failed > 0) process.exit(1);
+  if (failed > 0) {
+    (globalThis as any).process?.exit(1);
+  }
 }
 
 runTests().catch((e) => {
   console.error('Fatal test runner error:', e);
-  process.exit(1);
+  (globalThis as any).process?.exit(1);
 });
