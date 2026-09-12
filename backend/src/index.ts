@@ -29,6 +29,20 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root welcome & API status route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'PulseAgency Real-Time Backend API is running.',
+    version: '1.0.0',
+    websocket: 'Socket.io Active',
+    endpoints: {
+      health: '/health',
+      api: '/api',
+    },
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
